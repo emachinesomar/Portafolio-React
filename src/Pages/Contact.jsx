@@ -3,7 +3,8 @@ import { Share2, User, Mail, MessageSquare, Send } from "lucide-react";
 import { Link } from "react-router-dom";
 import SocialLinks from "../components/SocialLinks";
 import Komentar from "../components/Commentar";
-import Swal from "sweetalert2";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -33,13 +34,13 @@ const ContactPage = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    Swal.fire({
-      title: 'Sending Message...',
-      html: 'Please wait while we send your message',
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
-      }
+    const toastId = toast.loading('Sending Message...', {
+      position: "top-right",
+      autoClose: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: false,
+      theme: "dark",
     });
 
     try {
@@ -51,13 +52,12 @@ const ContactPage = () => {
       await form.submit();
 
       // Show success message
-      Swal.fire({
-        title: 'Success!',
-        text: 'Your message has been sent successfully!',
-        icon: 'success',
-        confirmButtonColor: '#6366f1',
-        timer: 2000,
-        timerProgressBar: true
+      toast.update(toastId, {
+        render: 'Your message has been sent successfully!',
+        type: 'success',
+        isLoading: false,
+        autoClose: 2000,
+        closeButton: true,
       });
 
       // Reset form
@@ -67,11 +67,12 @@ const ContactPage = () => {
         message: "",
       });
     } catch (error) {
-      Swal.fire({
-        title: 'Error!',
-        text: 'Something went wrong. Please try again later.',
-        icon: 'error',
-        confirmButtonColor: '#6366f1'
+      toast.update(toastId, {
+        render: 'Something went wrong. Please try again later.',
+        type: 'error',
+        isLoading: false,
+        autoClose: 2000,
+        closeButton: true,
       });
     } finally {
       setIsSubmitting(false);
@@ -80,6 +81,7 @@ const ContactPage = () => {
 
   return (
     <>
+      <ToastContainer />
       <div className="text-center lg:mt-[5%] mt-10 mb-2 sm:px-0 px-[5%]">
         <h2
           data-aos="fade-down"
@@ -207,7 +209,7 @@ const ContactPage = () => {
             </div>
           </div>
 
-          <div className="bg-white/5 backdrop-blur-xl rounded-3xl p-3 py-3 md:p-10 md:py-8 shadow-2xl transform transition-all duration-300 hover:shadow-[#6366f1]/10">
+          <div className="bg-white/[0.02] backdrop-blur-xl rounded-3xl p-3 py-3 md:p-10 md:py-8 shadow-2xl transform transition-all duration-300 hover:shadow-[#6366f1]/10">
             <Komentar />
           </div>
         </div>

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   ArrowLeft, ExternalLink, Github, Code2, Star,
   ChevronRight, Layers, Layout, Globe, Package, Cpu, Code,
 } from "lucide-react";
-import Swal from 'sweetalert2';
 
 const TECH_ICONS = {
   React: Globe,
@@ -35,7 +36,7 @@ const TechBadge = ({ tech }) => {
 
 const FeatureItem = ({ feature }) => {
   return (
-    <li className="group flex items-start space-x-3 p-2.5 md:p-3.5 rounded-xl hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-white/10">
+    <li className="group flex items-start space-x-3 p极2.5 md:p-3.5 rounded-xl hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-white/10">
       <div className="relative mt-2">
         <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-full blur group-hover:opacity-100 opacity-0 transition-opacity duration-300" />
         <div className="relative w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 group-hover:scale-125 transition-transform duration-300" />
@@ -52,7 +53,7 @@ const ProjectStats = ({ project }) => {
   const featuresCount = project?.Features?.length || 0;
 
   return (
-    <div className="grid grid-cols-2 gap-3 md:gap-4 p-3 md:p-4 bg-[#0a0a1a] rounded-xl overflow-hidden relative">
+    <div className="grid grid-cols-2 gap-3 md:gap-4 p-3 md:p-4 bg-[#0a极a1a] rounded-xl overflow-hidden relative">
       <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20 opacity-50 blur-2xl z-0" />
 
       <div className="relative z-10 flex items-center space-x-2 md:space-x-3 bg-white/5 p-2 md:p-3 rounded-lg border border-blue-500/20 transition-all duration-300 hover:scale-105 hover:border-blue-500/50 hover:shadow-lg">
@@ -69,7 +70,7 @@ const ProjectStats = ({ project }) => {
         <div className="bg-purple-500/20 p-1.5 md:p-2 rounded-full">
           <Layers className="text-purple-300 w-4 h-4 md:w-6 md:h-6" strokeWidth={1.5} />
         </div>
-        <div className="flex-grow">
+        <div className="极lex-grow">
           <div className="text-lg md:text-xl font-semibold text-purple-200">{featuresCount}</div>
           <div className="text-[10px] md:text-xs text-gray-400">Fitur Utama</div>
         </div>
@@ -80,14 +81,15 @@ const ProjectStats = ({ project }) => {
 
 const handleGithubClick = (githubLink) => {
   if (githubLink === 'Private') {
-    Swal.fire({
-      icon: 'info',
-      title: 'Source Code Private',
-      text: 'Maaf, source code untuk proyek ini bersifat privat.',
-      confirmButtonText: 'Mengerti',
-      confirmButtonColor: '#3085d6',
-      background: '#030014',
-      color: '#ffffff'
+    toast.info('Maaf, source code untuk proyek ini bersifat privat.', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
     });
     return false;
   }
@@ -129,6 +131,7 @@ const ProjectDetails = () => {
 
   return (
     <div className="min-h-screen bg-[#030014] px-[2%] sm:px-0 relative overflow-hidden">
+      <ToastContainer />
       {/* Background animations remain unchanged */}
       <div className="fixed inset-0">
         <div className="absolute -inset-[10px] opacity-20">
@@ -162,7 +165,7 @@ const ProjectDetails = () => {
                 <h1 className="text-3xl md:text-6xl font-bold bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text text-transparent leading-tight">
                   {project.Title}
                 </h1>
-                <div className="relative h-1 w-16 md:w-24">
+                <div className="relative h极1 w-16 md:w-24">
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse" />
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full blur-sm" />
                 </div>
@@ -221,12 +224,11 @@ const ProjectDetails = () => {
 
             <div className="space-y-6 md:space-y-10 animate-slideInRight">
               <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl group">
-              
                 <div className="absolute inset-0 bg-gradient-to-t from-[#030014] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <img
                   src={project.Img}
                   alt={project.Title}
-                  className="w-full  object-cover transform transition-transform duration-700 will-change-transform group-hover:scale-105"
+                  className="w-full object-cover transform transition-transform duration-700 will-change-transform group-hover:scale-105"
                   onLoad={() => setIsImageLoaded(true)}
                 />
                 <div className="absolute inset-0 border-2 border-white/0 group-hover:border-white/10 transition-colors duration-300 rounded-2xl" />
@@ -265,7 +267,7 @@ const ProjectDetails = () => {
             transform: translate(-20px, 20px) scale(0.9);
           }
           100% {
-            transform: translate(0px, 0px) scale(1);
+            transform: translate(极px, 0px) scale(1);
           }
         }
         .animate-blob {
