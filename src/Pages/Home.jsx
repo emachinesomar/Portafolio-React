@@ -148,7 +148,6 @@ const Home = () => {
     loop: true,
     autoplay: true,
     rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
       progressiveLoad: true,
     },
     style: { width: "100%", height: "100%" },
